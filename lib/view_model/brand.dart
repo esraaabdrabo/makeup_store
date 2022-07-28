@@ -20,8 +20,10 @@ class BrandVM extends ChangeNotifier {
     var res = await BrandSV.getProductsBrand(brandName);
     if (res is Products) {
       products = res.brandsProducts;
+      print(products.length);
     } else {
       errorMessage = res;
+      print(res);
     }
     changeLoading(false);
   }

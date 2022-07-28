@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:store/view_model/home.dart';
+import 'package:store/views/brand.dart';
 
 class home extends StatelessWidget {
   const home({Key? key}) : super(key: key);
@@ -8,11 +9,6 @@ class home extends StatelessWidget {
   Widget build(BuildContext context) {
     List<String> brands = HomeVM.brands;
     List<String> categories = HomeVM.categories;
-    text(List<String> list) {
-      for (int i = 0; i < brands.length - 1; i++) {
-        return Text(brands[i]);
-      }
-    }
 
     return Column(
       children: [
@@ -32,7 +28,14 @@ class home extends StatelessWidget {
                 mainAxisSpacing: 0, crossAxisSpacing: 0, crossAxisCount: 3),
             itemCount: brands.length,
             itemBuilder: (context, index) {
-              return TextButton(onPressed: () {}, child: Text(brands[index]));
+              return TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) => Brand(brands[index]))));
+                  },
+                  child: Text(brands[index]));
             },
           ),
         ),
