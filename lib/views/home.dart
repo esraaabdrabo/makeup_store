@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:store/view_model/home.dart';
 import 'package:store/views/brand.dart';
+import 'package:store/views/category.dart';
 
 class home extends StatelessWidget {
   const home({Key? key}) : super(key: key);
@@ -59,7 +60,14 @@ class home extends StatelessWidget {
             itemCount: categories.length,
             itemBuilder: (context, index) {
               return TextButton(
-                  onPressed: () {}, child: Text(categories[index]));
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Categroy(categories[index]),
+                        ));
+                  },
+                  child: Text(categories[index]));
             },
           ),
         )
