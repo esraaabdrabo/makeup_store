@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:store/myThemeData.dart';
-import 'package:store/view_model/home.dart';
 import 'package:store/views/Home_Fragment/brands.dart';
 import 'package:store/views/Home_Fragment/categories.dart';
-import 'package:store/views/brand.dart';
-import 'package:store/views/category.dart';
 import 'package:store/widgets/commonWidgets.dart';
+
+import 'drawer.dart';
 
 class home extends StatefulWidget {
   const home({Key? key}) : super(key: key);
@@ -19,11 +18,13 @@ class _homeState extends State<home> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(''),
-      ),
-      body: index == 0 ? const Categories() : const Brands(),
+      drawer: const RedDrawer(),
+      extendBody: true,
+      appBar: CommonWidgets.appBAR(),
+      body: const Brands(),
       bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
           currentIndex: index,
           onTap: (value) {
             index = value;
@@ -37,3 +38,4 @@ class _homeState extends State<home> {
     );
   }
 }
+*/
