@@ -3,7 +3,6 @@ import 'package:store/views/products.dart/brand_products.dart';
 
 import '../view_model/home.dart';
 import '../widgets/commonWidgets.dart';
-import 'brand.dart';
 import 'drawer.dart';
 
 class Brands extends StatelessWidget {

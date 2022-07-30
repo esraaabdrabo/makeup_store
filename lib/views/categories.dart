@@ -13,6 +13,7 @@ class Categories extends StatelessWidget {
     List<String> categories = HomeVM.categories;
 
     return Scaffold(
+      drawerScrimColor: Colors.amber,
       drawer: const RedDrawer(),
       extendBody: true,
       appBar: CommonWidgets.appBAR(),
@@ -37,7 +38,8 @@ class Categories extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Categroy(categories[index]),
+                            builder: (context) =>
+                                CategoryProducts(categories[index]),
                           ));
                     },
                     child:

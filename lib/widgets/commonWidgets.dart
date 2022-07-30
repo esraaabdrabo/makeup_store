@@ -20,10 +20,13 @@ class CommonWidgets {
 
   static PreferredSizeWidget appBAR() {
     return AppBar(
-        backgroundColor: myThemeData.themeData.colorScheme.secondary,
+        backgroundColor: Colors.white,
         title: Text(
           'Royal',
-          style: TextStyle(letterSpacing: 2, shadows: myThemeData.appbarShadow),
+          style: TextStyle(
+              letterSpacing: 2,
+              color: myThemeData.themeData.colorScheme.secondary,
+              shadows: myThemeData.appbarShadow),
         ),
         centerTitle: true,
         shape: const RoundedRectangleBorder(
@@ -108,6 +111,43 @@ class CommonWidgets {
             style: const TextStyle(
                 fontSize: 23, color: Color.fromARGB(255, 255, 255, 255)),
           ))),
+    );
+  }
+
+  static Widget prodNamePrice(BuildContext context, String name, String price) {
+    return Column(
+      children: [
+        Text(
+          name,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 16, color: Colors.white),
+        ),
+        Divider(
+          color: myThemeData.coffecolor,
+          endIndent: 50,
+          indent: 50,
+          height: MediaQuery.of(context).size.height * .02,
+        ),
+        //price
+        Text(
+          '$price \$',
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+              fontSize: 12, color: Color.fromARGB(148, 255, 255, 255)),
+        ),
+      ],
+    );
+  }
+
+  static Widget prodImg(BuildContext context, String url) {
+    return Container(
+      alignment: Alignment.center,
+      color: Colors.white,
+      width: MediaQuery.of(context).size.width * .5,
+      child: Image.network(
+        'http:$url}',
+        fit: BoxFit.fill,
+      ),
     );
   }
 }
