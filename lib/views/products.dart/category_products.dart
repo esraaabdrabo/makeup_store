@@ -6,6 +6,8 @@ import 'package:store/view_model/brand.dart';
 import 'package:store/view_model/category.dart';
 import 'package:store/widgets/commonWidgets.dart';
 
+import '../../view_model/shopping_cart.dart';
+
 // ignore: must_be_immutable
 class CategoryProducts extends StatelessWidget {
   String brandName;
@@ -13,6 +15,8 @@ class CategoryProducts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ShoppingCartVM shoppingCartProvider = Provider.of(context);
+
     return ChangeNotifierProvider(
         create: (context) => CategoryVM(brandName),
         builder: (context, child) {
@@ -20,7 +24,8 @@ class CategoryProducts extends StatelessWidget {
           List<Product> products = provider.products;
           return Scaffold(
               backgroundColor: myThemeData.movcolor,
-              appBar: CommonWidgets.appBAR(),
+              appBar: CommonWidgets.appBAR(
+                  context, shoppingCartProvider.itemsNum.toString()),
               body: provider.isLoading
                   ? const Center(child: CircularProgressIndicator())
                   : ListView.builder(

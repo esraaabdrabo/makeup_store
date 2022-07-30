@@ -18,8 +18,40 @@ class CommonWidgets {
     );
   }
 
-  static PreferredSizeWidget appBAR() {
+  static PreferredSizeWidget appBAR(BuildContext context, String itemsNum) {
     return AppBar(
+        iconTheme:
+            IconThemeData(color: myThemeData.themeData.colorScheme.secondary),
+        actions: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              //shopping cart
+              InkWell(
+                onTap: () {},
+                child: Column(
+                  children: [
+                    Text(
+                      itemsNum,
+                      style: TextStyle(color: myThemeData.bluecolor),
+                    ),
+                    const Icon(Icons.shopping_cart),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * .03,
+                width: MediaQuery.of(context).size.width * .06,
+                child:
+                    VerticalDivider(color: myThemeData.bluecolor, thickness: 3),
+              ),
+              InkWell(onTap: () {}, child: const Icon(Icons.person)),
+
+              SizedBox(width: MediaQuery.of(context).size.width * .08),
+              // MediaQuery.of(context).size.width*.05,)
+            ],
+          )
+        ],
         backgroundColor: Colors.white,
         title: Text(
           'Royal',
