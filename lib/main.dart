@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:store/views/Home_Fragment/brands.dart';
 
 import 'views/home.dart';
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Scaffold(body: home()),
+      home: Brands(),
     );
   }
 }

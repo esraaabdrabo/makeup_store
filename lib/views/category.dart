@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:store/models/product.dart';
-import 'package:store/view_model/brand.dart';
+import 'package:store/view_model/category.dart';
 
 // ignore: must_be_immutable
-class Brand extends StatelessWidget {
-  String brandName;
-  Brand(this.brandName, {Key? key}) : super(key: key);
+class Categroy extends StatelessWidget {
+  String categoryName;
+  Categroy(this.categoryName, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => BrandVM(brandName),
+        create: (context) => CategoryVM(categoryName),
         builder: (context, child) {
-          BrandVM provider = Provider.of(context);
+          CategoryVM provider = Provider.of(context);
           List<Product> products = provider.products;
           return Scaffold(
               body: provider.isLoading
