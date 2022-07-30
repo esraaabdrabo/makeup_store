@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:store/models/product.dart';
-import 'package:store/view_model/brand.dart';
 import 'package:store/view_model/category.dart';
 
 // ignore: must_be_immutable
@@ -16,7 +15,6 @@ class Categroy extends StatelessWidget {
         builder: (context, child) {
           CategoryVM provider = Provider.of(context);
           List<Product> products = provider.products;
-          print(products.length);
           return Scaffold(
               body: provider.isLoading
                   ? const Center(child: CircularProgressIndicator())
