@@ -20,6 +20,7 @@ class BrandProducts extends StatefulWidget {
 class _BrandProductsState extends State<BrandProducts> {
   @override
   bool isfav = false;
+  var num = 0;
 
   Widget build(BuildContext context) {
     ShoppingCartVM shoppingCartProvider = Provider.of(context);
@@ -79,15 +80,46 @@ class _BrandProductsState extends State<BrandProducts> {
                                                             .spaceAround,
                                                     children: [
                                                       //shooping cart
-                                                      IconButton(
-                                                          onPressed: () {
+                                                      InkWell(
+                                                          onTap: () {
                                                             shoppingCartProvider
-                                                                .addItem();
+                                                                .addItem(products[
+                                                                        index]
+                                                                    .id);
+
+                                                            shoppingCartProvider
+                                                                .ordersList
+                                                                .forEach(
+                                                                    (element) {
+                                                              if (element.id ==
+                                                                  products[
+                                                                          index]
+                                                                      .id) {
+                                                                num =
+                                                                    element.num;
+                                                                print(element
+                                                                    .num);
+                                                                setState(() {});
+                                                              } else {
+                                                                num = 1;
+                                                              }
+                                                            });
                                                           },
-                                                          icon: const Icon(
-                                                            Icons
-                                                                .add_shopping_cart,
-                                                            color: Colors.white,
+                                                          child: Column(
+                                                            children: [
+                                                              Text(
+                                                                num.toString(),
+                                                                style: const TextStyle(
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                              const Icon(
+                                                                Icons
+                                                                    .add_shopping_cart,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ],
                                                           )),
                                                       //fav
                                                       IconButton(
