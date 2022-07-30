@@ -4,9 +4,9 @@ import 'package:store/models/product.dart';
 import 'package:store/view_model/brand.dart';
 
 // ignore: must_be_immutable
-class Brand extends StatelessWidget {
+class BrandProducts extends StatelessWidget {
   String brandName;
-  Brand(this.brandName, {Key? key}) : super(key: key);
+  BrandProducts(this.brandName, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:store/myThemeData.dart';
-import 'package:store/views/Home_Fragment/brands.dart';
-import 'package:store/views/Home_Fragment/categories.dart';
+import 'package:store/views/brands.dart';
+import 'package:store/views/categories.dart';
 import 'package:store/widgets/commonWidgets.dart';
 
 class RedDrawer extends StatelessWidget {

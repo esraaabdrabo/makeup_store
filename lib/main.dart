@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:store/views/Home_Fragment/brands.dart';
+import 'package:store/views/brands.dart';
 
 import 'views/home.dart';
 
