@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:store/models/product.dart';
@@ -19,9 +21,6 @@ class BrandProducts extends StatefulWidget {
 
 class _BrandProductsState extends State<BrandProducts> {
   @override
-  bool isfav = false;
-  var num = 0;
-
   Widget build(BuildContext context) {
     ShoppingCartVM shoppingCartProvider = Provider.of(context);
 
@@ -82,33 +81,20 @@ class _BrandProductsState extends State<BrandProducts> {
                                                       //shooping cart
                                                       InkWell(
                                                           onTap: () {
+                                                            log('item ${products[index].id} will be added');
                                                             shoppingCartProvider
                                                                 .addItem(products[
                                                                         index]
                                                                     .id);
-
-                                                            shoppingCartProvider
-                                                                .ordersList
-                                                                .forEach(
-                                                                    (element) {
-                                                              if (element.id ==
-                                                                  products[
-                                                                          index]
-                                                                      .id) {
-                                                                num =
-                                                                    element.num;
-                                                                print(element
-                                                                    .num);
-                                                                setState(() {});
-                                                              } else {
-                                                                num = 1;
-                                                              }
-                                                            });
                                                           },
                                                           child: Column(
                                                             children: [
                                                               Text(
-                                                                num.toString(),
+                                                                shoppingCartProvider
+                                                                    .getproductOrderNum(
+                                                                        products[index]
+                                                                            .id)
+                                                                    .toString(),
                                                                 style: const TextStyle(
                                                                     color: Colors
                                                                         .white),
