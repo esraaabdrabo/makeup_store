@@ -33,6 +33,7 @@ class _BrandProductsState extends State<BrandProducts> {
               builder: (context, child) {
                 BrandVM provider = Provider.of(context);
                 List<Product> products = provider.products;
+
                 return Scaffold(
                     backgroundColor: myThemeData.movcolor,
                     appBar: CommonWidgets.appBAR(

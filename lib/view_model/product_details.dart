@@ -49,7 +49,7 @@ class ProductDetails extends StatelessWidget {
                 ),
                 product.description != '' ? vertcalSpace() : Container(),
                 //colors row
-                product.productColors.length > 0
+                product.productColors.isNotEmpty
                     ? Container(
                         color: Colors.white,
                         width: MediaQuery.of(context).size.width,
@@ -66,30 +66,50 @@ class ProductDetails extends StatelessWidget {
                                       .hexValue
                                       .replaceAll(RegExp('#'), '');
                               int colorHexaInt = int.parse(colorHexaString);
-                              return Container(
-                                margin: EdgeInsets.all(
-                                    MediaQuery.of(context).size.width * .01),
-                                width: MediaQuery.of(context).size.width * .1,
-                                decoration: BoxDecoration(
-                                    color: Color(colorHexaInt),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(
-                                      MediaQuery.of(context).size.height,
-                                    ))),
+                              return InkWell(
+                                onTap: () {
+                                  shoppingCartProvider.orderColorName =
+                                      colors[index].colourName;
+
+                                  shoppingCartProvider.orderColorHexa =
+                                      colorHexaString;
+
+                                  log(shoppingCartProvider.orderColorName);
+                                  log(shoppingCartProvider.orderColorHexa);
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.all(
+                                      MediaQuery.of(context).size.width * .01),
+                                  width: MediaQuery.of(context).size.width * .1,
+                                  decoration: BoxDecoration(
+                                      color: Color(colorHexaInt),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(
+                                        MediaQuery.of(context).size.height,
+                                      ))),
+                                ),
                               );
                             },
                           ),
                         ),
                       )
                     : Container(),
-                product.productColors.length > 0
+                product.productColors.isNotEmpty
                     ? vertcalSpace()
                     : Container(), //add remove row
                 SizedBox(
                     width: MediaQuery.of(context).size.width * .4,
                     child: CommonWidgets.addRemoveRow(
-                        shoppingCartProvider, product.id, true)),
+                        shoppingCartProvider, product.id, '', '', true)),
                 vertcalSpace(),
+                ElevatedButton(
+                    onPressed: () {
+                      shoppingCartProvider.addItem(
+                          product.id,
+                          shoppingCartProvider.orderColorName,
+                          shoppingCartProvider.orderColorHexa);
+                    },
+                    child: const Text('ADD TO CART'))
               ],
             ),
           ),

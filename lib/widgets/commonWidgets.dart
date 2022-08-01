@@ -191,6 +191,7 @@ class CommonWidgets {
   }
 
   static Widget addRemoveRow(ShoppingCartVM shoppingCartProvider, int id,
+      String colorName, String colorHexa,
       [bool isCicleBtnDec = false]) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -201,7 +202,7 @@ class CommonWidgets {
           decoration: isCicleBtnDec ? myThemeData.circleBtnDec : null,
           child: IconButton(
               onPressed: () {
-                shoppingCartProvider.addItem(id);
+                shoppingCartProvider.addItem(id, 'colorName', 'colorHexa');
               },
               icon: const Icon(
                 Icons.add,
@@ -210,7 +211,7 @@ class CommonWidgets {
         ),
         //order number
         Text(
-          shoppingCartProvider.getproductOrderNum(id).toString(),
+          shoppingCartProvider.getproductOrderNum(id),
           style: const TextStyle(color: Colors.white),
         ),
 //delete icon
@@ -218,7 +219,7 @@ class CommonWidgets {
           decoration: isCicleBtnDec ? myThemeData.circleBtnDec : null,
           child: IconButton(
               onPressed: () {
-                shoppingCartProvider.deleteItem(id);
+                shoppingCartProvider.removeFromPieceNum(id);
               },
               icon: const Icon(
                 Icons.remove,
@@ -268,7 +269,10 @@ class CommonWidgets {
                                   products[index].name, products[index].price),
                               //add , num of items in ordere , delete
                               CommonWidgets.addRemoveRow(
-                                  shoppingCartProvider, products[index].id)
+                                  shoppingCartProvider,
+                                  products[index].id,
+                                  '  products[index].productColors[0].colourName',
+                                  ' products[index].productColors[0].hexValue.toString()')
                             ],
                           )),
                       //product img and fav icon
