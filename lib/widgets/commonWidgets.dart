@@ -190,23 +190,30 @@ class CommonWidgets {
     );
   }
 
-  static Widget addRemoveRow(ShoppingCartVM shoppingCartProvider, int id,
-      String colorName, String colorHexa,
-      [bool isCicleBtnDec = false]) {
+  static Widget addRemoveRow(
+      BuildContext context,
+      ShoppingCartVM shoppingCartProvider,
+      int id,
+      String colorName,
+      String colorHexa,
+      [bool isCircleBtnDec = false]) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         //add icon
         Container(
-          decoration: isCicleBtnDec ? myThemeData.circleBtnDec : null,
+          height: MediaQuery.of(context).size.height * .04,
+          width: MediaQuery.of(context).size.height * .04,
+          decoration: isCircleBtnDec ? myThemeData.circleBtnDec : null,
           child: IconButton(
               onPressed: () {
                 shoppingCartProvider.addItem(id, 'colorName', 'colorHexa');
               },
-              icon: const Icon(
+              icon: Icon(
                 Icons.add,
-                color: Colors.white,
+                color: isCircleBtnDec ? myThemeData.movcolor : Colors.white,
+                size: isCircleBtnDec ? 15 : 20,
               )),
         ),
         //order number
@@ -216,14 +223,17 @@ class CommonWidgets {
         ),
 //delete icon
         Container(
-          decoration: isCicleBtnDec ? myThemeData.circleBtnDec : null,
+          height: MediaQuery.of(context).size.height * .04,
+          width: MediaQuery.of(context).size.height * .04,
+          decoration: isCircleBtnDec ? myThemeData.circleBtnDec : null,
           child: IconButton(
               onPressed: () {
                 shoppingCartProvider.removeFromPieceNum(id);
               },
-              icon: const Icon(
+              icon: Icon(
                 Icons.remove,
-                color: Colors.white,
+                color: isCircleBtnDec ? myThemeData.movcolor : Colors.white,
+                size: isCircleBtnDec ? 15 : 20,
               )),
         ),
       ],
@@ -269,6 +279,7 @@ class CommonWidgets {
                                   products[index].name, products[index].price),
                               //add , num of items in ordere , delete
                               CommonWidgets.addRemoveRow(
+                                  context,
                                   shoppingCartProvider,
                                   products[index].id,
                                   '  products[index].productColors[0].colourName',
