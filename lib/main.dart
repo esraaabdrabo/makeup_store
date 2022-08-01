@@ -3,8 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:store/view_model/shopping_cart.dart';
 import 'package:store/views/brands.dart';
 
-import 'views/home.dart';
-
 void main() {
   runApp(const MyApp());
 }

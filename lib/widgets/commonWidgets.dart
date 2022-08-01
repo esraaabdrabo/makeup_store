@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:store/myThemeData.dart';
+import 'package:store/view_model/product_details.dart';
 
 import '../models/product.dart';
 import '../view_model/favourite.dart';
@@ -189,6 +190,45 @@ class CommonWidgets {
     );
   }
 
+  static Widget addRemoveRow(ShoppingCartVM shoppingCartProvider, int id,
+      [bool isCicleBtnDec = false]) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        //add icon
+        Container(
+          decoration: isCicleBtnDec ? myThemeData.circleBtnDec : null,
+          child: IconButton(
+              onPressed: () {
+                shoppingCartProvider.addItem(id);
+              },
+              icon: const Icon(
+                Icons.add,
+                color: Colors.white,
+              )),
+        ),
+        //order number
+        Text(
+          shoppingCartProvider.getproductOrderNum(id).toString(),
+          style: const TextStyle(color: Colors.white),
+        ),
+//delete icon
+        Container(
+          decoration: isCicleBtnDec ? myThemeData.circleBtnDec : null,
+          child: IconButton(
+              onPressed: () {
+                shoppingCartProvider.deleteItem(id);
+              },
+              icon: const Icon(
+                Icons.remove,
+                color: Colors.white,
+              )),
+        ),
+      ],
+    );
+  }
+
   static Widget productsListView(
       List<Product> products,
       ShoppingCartVM shoppingCartProvider,
@@ -208,7 +248,13 @@ class CommonWidgets {
                 height: MediaQuery.of(context).size.height * .02,
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ProductDetails(products[index])));
+                },
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -221,40 +267,8 @@ class CommonWidgets {
                               CommonWidgets.prodNamePrice(context,
                                   products[index].name, products[index].price),
                               //add , num of items in ordere , delete
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  //add icon
-                                  IconButton(
-                                      onPressed: () {
-                                        shoppingCartProvider
-                                            .addItem(products[index].id);
-                                      },
-                                      icon: const Icon(
-                                        Icons.add,
-                                        color: Colors.white,
-                                      )),
-                                  //order number
-                                  Text(
-                                    shoppingCartProvider
-                                        .getproductOrderNum(products[index].id)
-                                        .toString(),
-                                    style: const TextStyle(color: Colors.white),
-                                  ),
-//delete icon
-                                  IconButton(
-                                      onPressed: () {
-                                        shoppingCartProvider
-                                            .deleteItem(products[index].id);
-                                      },
-                                      icon: const Icon(
-                                        Icons.remove,
-                                        color: Colors.white,
-                                      )),
-                                ],
-                              )
+                              CommonWidgets.addRemoveRow(
+                                  shoppingCartProvider, products[index].id)
                             ],
                           )),
                       //product img and fav icon
