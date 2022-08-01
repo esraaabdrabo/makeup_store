@@ -7,4 +7,9 @@ class FavouriteVM extends ChangeNotifier {
     favList.add(newProd);
     notifyListeners();
   }
+
+  removeFromFav(int id) {
+    favList.removeWhere(((element) => element.id == id));
+    notifyListeners();
+  }
 }

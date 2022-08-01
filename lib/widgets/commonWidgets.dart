@@ -1,5 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:store/myThemeData.dart';
+
+import '../models/product.dart';
+import '../view_model/favourite.dart';
+import '../view_model/shopping_cart.dart';
 
 int colorIndex = 0;
 
@@ -86,7 +92,7 @@ class CommonWidgets {
                 Color.fromARGB(255, 165, 49, 49),
                 Color.fromARGB(255, 34, 4, 4)
               ]),
-          borderRadius: const BorderRadius.all(Radius.circular(100))),
+          borderRadius: BorderRadius.all(Radius.circular(100))),
       child: Center(
         child: Text(
           title,
@@ -181,5 +187,122 @@ class CommonWidgets {
         fit: BoxFit.fill,
       ),
     );
+  }
+
+  static Widget productsListView(
+      List<Product> products,
+      ShoppingCartVM shoppingCartProvider,
+      FavouriteVM favProvider,
+      BuildContext context) {
+    return ListView.builder(
+        itemCount: products.length,
+        itemBuilder: (context, index) {
+          return Column(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * .02,
+              ),
+              //upper white line
+              Container(
+                color: Colors.white,
+                height: MediaQuery.of(context).size.height * .02,
+              ),
+              InkWell(
+                onTap: () {},
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      //product details
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width * .4,
+                          child: Column(
+                            children: [
+                              //name divider price
+                              CommonWidgets.prodNamePrice(context,
+                                  products[index].name, products[index].price),
+                              //add , num of items in ordere , delete
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  //add icon
+                                  IconButton(
+                                      onPressed: () {
+                                        shoppingCartProvider
+                                            .addItem(products[index].id);
+                                      },
+                                      icon: const Icon(
+                                        Icons.add,
+                                        color: Colors.white,
+                                      )),
+                                  //order number
+                                  Text(
+                                    shoppingCartProvider
+                                        .getproductOrderNum(products[index].id)
+                                        .toString(),
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+//delete icon
+                                  IconButton(
+                                      onPressed: () {
+                                        shoppingCartProvider
+                                            .deleteItem(products[index].id);
+                                      },
+                                      icon: const Icon(
+                                        Icons.remove,
+                                        color: Colors.white,
+                                      )),
+                                ],
+                              )
+                            ],
+                          )),
+                      //product img and fav icon
+                      Stack(children: [
+                        CommonWidgets.prodImg(
+                            context, products[index].apiFeaturedImage),
+                        //fav
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * .5,
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                //fav icon
+                                Container(
+                                  decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(100))),
+                                  child: IconButton(
+                                      onPressed: () {
+                                        if (favProvider.favList
+                                            .contains(products[index])) {
+                                          favProvider.removeFromFav(
+                                              products[index].id);
+                                        } else {
+                                          favProvider.addToFav(products[index]);
+                                        }
+                                      },
+                                      icon: Icon(
+                                        favProvider.favList
+                                                .contains(products[index])
+                                            ? Icons.favorite
+                                            : Icons.favorite_border,
+                                        color: Colors.red,
+                                      )),
+                                ),
+                              ]),
+                        ),
+                      ])
+                    ]),
+              ),
+              //lower white line
+              Container(
+                color: Colors.white,
+                height: MediaQuery.of(context).size.height * .02,
+              )
+            ],
+          );
+        });
   }
 }

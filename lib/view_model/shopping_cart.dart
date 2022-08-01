@@ -9,11 +9,27 @@ class ShoppingCartVM extends ChangeNotifier {
     // foundAtIndex >=0 if element found
     if (isInCart(id) >= 0) {
       ordersList[foundAtIndex].num++;
+      itemsNum++;
 
       notifyListeners();
     } else {
       ordersList.add(Order(id));
+      itemsNum++;
       notifyListeners();
+    }
+  }
+
+  deleteItem(int id) {
+    int foundAtIndex = isInCart(id);
+    // foundAtIndex >=0 if element found
+    if (isInCart(id) >= 0) {
+      if (ordersList[foundAtIndex].num > 0) {
+        ordersList[foundAtIndex].num--;
+        itemsNum--;
+        notifyListeners();
+      }
+    } else {
+      null;
     }
   }
 

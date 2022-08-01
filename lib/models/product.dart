@@ -51,8 +51,14 @@ class Product {
   Product.fromJson(Map<String, dynamic> json) {
     if (json["id"] is int) id = json["id"];
     if (json["brand"] is String) brand = json["brand"];
-    if (json["name"] is String) name = json["name"];
-    if (json["price"] is String) price = json["price"];
+    if (json["name"] is String) {
+      name = json["name"];
+      name = name.trim();
+    }
+    if (json["price"] is String) {
+      price = json["price"];
+      price = price.trim();
+    }
     if (json["price_sign"] is String) priceSign = json["price_sign"];
     if (json["currency"] is String) currency = json["currency"];
     if (json["image_link"] is String) imageLink = json["image_link"];
