@@ -1,8 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:store/myThemeData.dart';
-import 'package:store/view_model/product_details.dart';
+import 'package:store/views/product_details.dart';
 
 import '../models/product.dart';
 import '../view_model/favourite.dart';
