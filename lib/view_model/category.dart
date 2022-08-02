@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:store/models/product.dart';
-import 'package:store/services/brand.dart';
 import 'package:store/services/category.dart';
 
 class CategoryVM extends ChangeNotifier {

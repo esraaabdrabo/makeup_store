@@ -30,71 +30,97 @@ class ShoppingCart extends StatelessWidget {
                     },
                     itemCount: ordersList.length,
                     itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      return InkWell(
+                          onTap: () async {},
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
                               children: [
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width * .6,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      //selected  color container
-                                      Row(
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          .6,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          const Text('Selected Color : '),
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              color: Color(int.parse(
-                                                  ordersList[index].colorHexa)),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                          .05)),
-                                            ),
-                                            padding: EdgeInsets.all(
-                                                MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    .05),
+                                          //selected  color container
+                                          Row(
+                                            children: [
+                                              const Text('Selected Color : '),
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  color: Color(int.parse(
+                                                      ordersList[index]
+                                                          .colorHexa)),
+                                                  borderRadius: BorderRadius
+                                                      .all(Radius.circular(
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              .05)),
+                                                ),
+                                                padding: EdgeInsets.all(
+                                                    MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                        .05),
+                                              ),
+                                            ],
                                           ),
+                                          //selected  color name
+                                          ordersList[index].colorName.trim() !=
+                                                  ''
+                                              ? Text(
+                                                  'Color Name : ${ordersList[index].colorName}')
+                                              : Container(),
+                                          //number of pieces
+                                          Text(
+                                              'Number Of Pieces : ${ordersList[index].num.toString()}'),
+                                          Text(
+                                              'Price : ${ordersList[index].price}')
                                         ],
                                       ),
-                                      //selected  color name
-                                      ordersList[index].colorName.trim() != ''
-                                          ? Text(
-                                              'Color Name : ${ordersList[index].colorName}')
-                                          : Container(),
-                                      //number of pieces
-                                      Text(
-                                          'Number Of Pieces : ${ordersList[index].num.toString()}'),
-                                      Text('Price : ${ordersList[index].price}')
-                                    ],
-                                  ),
+                                    ),
+                                    SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                .3,
+                                        height:
+                                            MediaQuery.of(context).size.width *
+                                                .3,
+                                        child: Image.network(
+                                            'http:${ordersList[index].imgUrl}')),
+                                  ],
                                 ),
-                                SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width * .3,
-                                    height:
-                                        MediaQuery.of(context).size.width * .3,
-                                    child: Image.network(
-                                        'http:${ordersList[index].imgUrl}')),
+                                index == ordersList.length - 1
+                                    ? Text(
+                                        'Total ${shoppingCartProvider.totalPrice} ')
+                                    : Container(),
+                                ElevatedButton(
+                                    style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                const Color(0xFFFFFFFF))),
+                                    onPressed: () {
+                                      shoppingCartProvider.deleteFromOrderList(
+                                          ordersList[index].id,
+                                          ordersList[index].colorHexa,
+                                          ordersList[index].num);
+                                    },
+                                    child: const Text(
+                                      'Remove From Cart',
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color.fromARGB(117, 0, 0, 0),
+                                          fontWeight: FontWeight.w400),
+                                    ))
                               ],
                             ),
-                            index == ordersList.length - 1
-                                ? Text(
-                                    'Total ${shoppingCartProvider.totalPrice} ')
-                                : Container()
-                          ],
-                        ),
-                      );
-                    }),
-              ));
+                          ));
+                    })));
   }
 }

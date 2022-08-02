@@ -67,14 +67,15 @@ class CommonWidgets {
         title: Text(
           'Royal',
           style: TextStyle(
-              letterSpacing: 2,
-              color: myThemeData.themeData.colorScheme.secondary,
-              shadows: myThemeData.appbarShadow),
+            letterSpacing: 2,
+            color: myThemeData.themeData.colorScheme.secondary,
+            //  shadows: myThemeData.appbarShadow
+          ),
         ),
         centerTitle: true,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(100))),
-        elevation: 15,
+        elevation: 5,
         shadowColor: const Color.fromARGB(210, 255, 95, 170));
   }
 

@@ -42,6 +42,16 @@ class ShoppingCartVM extends ChangeNotifier {
     }
   }
 
+  deleteFromOrderList(int id, String colorHexa, int num) {
+    int foundAtIndex = ordersList.indexWhere((element) =>
+        element.id == id &&
+        element.colorHexa == colorHexa &&
+        element.num == num);
+    itemsNum = itemsNum - ordersList[foundAtIndex].num;
+    ordersList.removeAt(foundAtIndex);
+    notifyListeners();
+  }
+
 //search for certain id in order list
 //return -1 if element not foune
 // return index if element found
