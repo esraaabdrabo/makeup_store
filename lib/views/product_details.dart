@@ -59,10 +59,13 @@ class ProductDetails extends StatelessWidget {
                           itemCount: product.productColors.length,
                           itemBuilder: (context, index) {
                             List<ProductColors> colors = product.productColors;
+
                             String colorHexaString = '0xff' +
                                 colors[index]
                                     .hexValue
                                     .replaceAll(RegExp('#'), '');
+
+                            //int to be container bg
                             int colorHexaInt = int.parse(colorHexaString);
                             return InkWell(
                               onTap: () {
@@ -113,11 +116,20 @@ class ProductDetails extends StatelessWidget {
                     backgroundColor: MaterialStateProperty.all(Colors.white),
                   ),
                   onPressed: () {
-                    shoppingCartProvider.addItem(
-                        product.id,
-                        shoppingCartProvider.orderColorName,
-                        shoppingCartProvider.orderColorHexa,
-                        product.apiFeaturedImage);
+                    //get how mauch pieces user want (num)
+                    int numOfPieces = int.parse(
+                        shoppingCartProvider.getproductOrderNum(product.id));
+                    //add in shopping cart
+                    //user must select color and number of pieces to add in cart
+                    if (shoppingCartProvider.orderColorHexa != '' &&
+                        numOfPieces != 0) {
+                      shoppingCartProvider.addItem(
+                          product.id,
+                          numOfPieces,
+                          shoppingCartProvider.orderColorName,
+                          shoppingCartProvider.orderColorHexa,
+                          product.apiFeaturedImage);
+                    } else {}
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

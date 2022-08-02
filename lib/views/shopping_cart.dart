@@ -22,6 +22,9 @@ class ShoppingCart extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
+                      Text(ordersList[index].num.toString()),
+                      Text(ordersList[index].colorHexa),
+                      Text(ordersList[index].colorName),
                       Image.network('http:${ordersList[index].imgUrl}'),
                       Text(ordersList[index].id.toString()),
                     ],

@@ -176,7 +176,7 @@ class CommonWidgets {
           '$price \$',
           textAlign: TextAlign.center,
           style: const TextStyle(
-              fontSize: 12, color: Color.fromARGB(148, 255, 255, 255)),
+              fontSize: 12, color: Color.fromARGB(223, 255, 255, 255)),
         ),
       ],
     );
@@ -187,6 +187,7 @@ class CommonWidgets {
       alignment: Alignment.center,
       color: Colors.white,
       width: MediaQuery.of(context).size.width * .5,
+      height: MediaQuery.of(context).size.width * .5,
       child: Image.network(
         'http:$url}',
         fit: BoxFit.fill,
@@ -213,8 +214,9 @@ class CommonWidgets {
           decoration: isCircleBtnDec ? myThemeData.circleBtnDec : null,
           child: IconButton(
               onPressed: () {
-                shoppingCartProvider.addItem(
-                    id, 'colorName', 'colorHexa', imgUrl);
+                //         shoppingCartProvider.addItem(
+                //           id, 'colorName', 'colorHexa', imgUrl);
+                shoppingCartProvider.addToPieceNum(id);
               },
               icon: Icon(
                 Icons.add,
@@ -235,7 +237,7 @@ class CommonWidgets {
           child: IconButton(
               onPressed: () {
                 shoppingCartProvider.removeFromPieceNum(id);
-                shoppingCartProvider.deleteItem(id);
+                //   shoppingCartProvider.deleteItem(id);
               },
               icon: Icon(
                 Icons.remove,
@@ -265,6 +267,8 @@ class CommonWidgets {
                 color: Colors.white,
                 height: MediaQuery.of(context).size.height * .02,
               ),
+              //product details (img and texts)
+
               InkWell(
                 onTap: () {
                   Navigator.push(
@@ -273,10 +277,12 @@ class CommonWidgets {
                           builder: (context) =>
                               ProductDetails(products[index])));
                 },
+                //product details (img and texts)
+
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      //product details
+                      //product details (img and texts)
                       SizedBox(
                           width: MediaQuery.of(context).size.width * .4,
                           child: Column(
@@ -284,15 +290,24 @@ class CommonWidgets {
                               //name divider price
                               CommonWidgets.prodNamePrice(context,
                                   products[index].name, products[index].price),
-                              //add , num of items in ordere , delete
-                              CommonWidgets.addRemoveRow(
-                                context,
-                                shoppingCartProvider,
-                                products[index].id,
-                                '  products[index].productColors[0].colourName',
-                                ' products[index].productColors[0].hexValue.toString()',
-                                products[index].apiFeaturedImage,
-                              )
+//brand text
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Brand : ${products[index].brand}',
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                      color:
+                                          Color.fromARGB(184, 255, 255, 255)),
+                                ),
+                              ),
+                              //category text
+                              Text(
+                                'Category : ${products[index].category}',
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                    color: Color.fromARGB(184, 255, 255, 255)),
+                              ),
                             ],
                           )),
                       //product img and fav icon

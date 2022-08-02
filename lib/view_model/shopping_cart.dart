@@ -10,7 +10,7 @@ class ShoppingCartVM extends ChangeNotifier {
   String orderColorName = '';
   String orderColorHexa = '';
 
-  addItem(int id, String colorName, String colorHexa, String imgUrl) {
+  addItem(int id, int num, String colorName, String colorHexa, String imgUrl) {
     //int foundAtIndex = isInCart(id);
     // foundAtIndex >=0 if element found
     /*if (isInCart(id) >= 0) {
@@ -22,12 +22,17 @@ class ShoppingCartVM extends ChangeNotifier {
 
       notifyListeners();
     } else {*/
-    ordersList.add(Order(id, colorName, colorHexa, imgUrl));
+    ordersList.add(Order(id, num, colorName, colorHexa, imgUrl));
     log(imgUrl);
     addToPieceNum(id);
     itemsNum++;
     // ordersList[foundAtIndex].colorHexa = colorHexa;
     //ordersList[foundAtIndex].colorName = colorName;
+    orderColorHexa = '';
+    orderColorName = '';
+    seletectColor = '';
+    var foundat = isInPieceNum(id);
+    pieceNum.removeAt(foundat);
     notifyListeners();
     //  }
   }
@@ -63,9 +68,7 @@ class ShoppingCartVM extends ChangeNotifier {
 //to retuen num on cart for view
   String getproductOrderNum(int id) {
     int foundAtIndex = isInPieceNum(id);
-    log('index $foundAtIndex');
     if (foundAtIndex >= 0) {
-      log(pieceNum.length.toString());
       return pieceNum[foundAtIndex].num.toString();
     }
     return '0';
@@ -120,11 +123,11 @@ class PieceNum {
 
 class Order {
   int id;
-  int num = 1;
+  int num = 0;
   String colorName = '';
   String colorHexa = '';
   String imgUrl = '';
-  Order(this.id, this.colorName, this.colorHexa, this.imgUrl);
+  Order(this.id, this.num, this.colorName, this.colorHexa, this.imgUrl);
 }
 
 class PieceColor {
