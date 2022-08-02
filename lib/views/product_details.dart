@@ -128,7 +128,8 @@ class ProductDetails extends StatelessWidget {
                           numOfPieces,
                           shoppingCartProvider.orderColorName,
                           shoppingCartProvider.orderColorHexa,
-                          product.apiFeaturedImage);
+                          product.apiFeaturedImage,
+                          product.price);
                     } else {}
                   },
                   child: Row(

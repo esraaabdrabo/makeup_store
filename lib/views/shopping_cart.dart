@@ -14,21 +14,87 @@ class ShoppingCart extends StatelessWidget {
         appBar: CommonWidgets.appBAR(
             context, shoppingCartProvider.itemsNum.toString()),
         body: ordersList.isEmpty
-            ? const SizedBox(
-                child: Text('shopping cart is empty'),
+            ? const Center(
+                child: Text(
+                  'shopping cart is empty',
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
+                ),
               )
-            : ListView.builder(
-                itemCount: ordersList.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      Text(ordersList[index].num.toString()),
-                      Text(ordersList[index].colorHexa),
-                      Text(ordersList[index].colorName),
-                      Image.network('http:${ordersList[index].imgUrl}'),
-                      Text(ordersList[index].id.toString()),
-                    ],
-                  );
-                }));
+            : Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListView.separated(
+                    separatorBuilder: (context, index) {
+                      return const Divider(
+                        thickness: 3,
+                      );
+                    },
+                    itemCount: ordersList.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width * .6,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      //selected  color container
+                                      Row(
+                                        children: [
+                                          const Text('Selected Color : '),
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              color: Color(int.parse(
+                                                  ordersList[index].colorHexa)),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          .05)),
+                                            ),
+                                            padding: EdgeInsets.all(
+                                                MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    .05),
+                                          ),
+                                        ],
+                                      ),
+                                      //selected  color name
+                                      ordersList[index].colorName.trim() != ''
+                                          ? Text(
+                                              'Color Name : ${ordersList[index].colorName}')
+                                          : Container(),
+                                      //number of pieces
+                                      Text(
+                                          'Number Of Pieces : ${ordersList[index].num.toString()}'),
+                                      Text('Price : ${ordersList[index].price}')
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width * .3,
+                                    height:
+                                        MediaQuery.of(context).size.width * .3,
+                                    child: Image.network(
+                                        'http:${ordersList[index].imgUrl}')),
+                              ],
+                            ),
+                            index == ordersList.length - 1
+                                ? Text(
+                                    'Total ${shoppingCartProvider.totalPrice} ')
+                                : Container()
+                          ],
+                        ),
+                      );
+                    }),
+              ));
   }
 }
