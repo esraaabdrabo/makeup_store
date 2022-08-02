@@ -27,13 +27,14 @@ class ProductDetails extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              //img
               vertcalSpace(),
+              //img
               SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child:
                       CommonWidgets.prodImg(context, product.apiFeaturedImage)),
-              vertcalSpace(), //name divder price
+              vertcalSpace(),
+              //name divder price
               CommonWidgets.prodNamePrice(context, product.name, product.price),
               vertcalSpace(),
               //description
@@ -65,6 +66,8 @@ class ProductDetails extends StatelessWidget {
                             int colorHexaInt = int.parse(colorHexaString);
                             return InkWell(
                               onTap: () {
+                                shoppingCartProvider
+                                    .selectColor(colorHexaString);
                                 shoppingCartProvider.orderColorName =
                                     colors[index].colourName;
 
@@ -77,10 +80,11 @@ class ProductDetails extends StatelessWidget {
                                 width: MediaQuery.of(context).size.width * .1,
                                 decoration: BoxDecoration(
                                     color: Color(colorHexaInt),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(
-                                      MediaQuery.of(context).size.height,
-                                    ))),
+                                    border:
+                                        shoppingCartProvider.seletectColor ==
+                                                colorHexaString
+                                            ? Border.all(width: 5)
+                                            : null),
                               ),
                             );
                           },

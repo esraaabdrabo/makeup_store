@@ -3,6 +3,7 @@ import 'package:store/myThemeData.dart';
 import 'package:store/views/brands.dart';
 import 'package:store/views/categories.dart';
 import 'package:store/widgets/commonWidgets.dart';
+import 'shopping_cart.dart';
 
 class RedDrawer extends StatelessWidget {
   const RedDrawer({Key? key}) : super(key: key);
@@ -36,7 +37,14 @@ class RedDrawer extends StatelessWidget {
         CommonWidgets.drawerRow(context, () {
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => const Brands()));
-        }, 'Brands', const Icon(Icons.category))
+        }, 'Brands', const Icon(Icons.category)),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * .05,
+        ),
+        CommonWidgets.drawerRow(context, () {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const ShoppingCart()));
+        }, 'Shopping cart', const Icon(Icons.shopping_cart))
       ]),
     );
   }

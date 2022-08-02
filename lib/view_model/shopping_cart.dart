@@ -1,11 +1,12 @@
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class ShoppingCartVM extends ChangeNotifier {
   int itemsNum = 0;
   List<Order> ordersList = [];
   List<PieceNum> pieceNum = [];
+  String seletectColor = '';
   String orderColorName = '';
   String orderColorHexa = '';
 
@@ -100,6 +101,11 @@ class ShoppingCartVM extends ChangeNotifier {
       null;
     }
   }
+
+  void selectColor(String color) {
+    seletectColor = color;
+    notifyListeners();
+  }
 }
 
 class PieceNum {
@@ -114,4 +120,9 @@ class Order {
   String colorName = '';
   String colorHexa = '';
   Order(this.id, this.colorName, this.colorHexa);
+}
+
+class PieceColor {
+  String selectedColor;
+  PieceColor(this.selectedColor);
 }

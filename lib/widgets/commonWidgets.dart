@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:store/myThemeData.dart';
 import 'package:store/views/product_details.dart';
+import 'package:store/views/shopping_cart.dart';
 
 import '../models/product.dart';
 import '../view_model/favourite.dart';
@@ -33,7 +34,12 @@ class CommonWidgets {
             children: [
               //shopping cart
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ShoppingCart()));
+                },
                 child: Column(
                   children: [
                     Text(
