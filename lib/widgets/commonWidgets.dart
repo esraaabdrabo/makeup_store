@@ -200,6 +200,7 @@ class CommonWidgets {
       int id,
       String colorName,
       String colorHexa,
+      String imgUrl,
       [bool isCircleBtnDec = false]) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -212,7 +213,8 @@ class CommonWidgets {
           decoration: isCircleBtnDec ? myThemeData.circleBtnDec : null,
           child: IconButton(
               onPressed: () {
-                shoppingCartProvider.addItem(id, 'colorName', 'colorHexa');
+                shoppingCartProvider.addItem(
+                    id, 'colorName', 'colorHexa', imgUrl);
               },
               icon: Icon(
                 Icons.add,
@@ -233,6 +235,7 @@ class CommonWidgets {
           child: IconButton(
               onPressed: () {
                 shoppingCartProvider.removeFromPieceNum(id);
+                shoppingCartProvider.deleteItem(id);
               },
               icon: Icon(
                 Icons.remove,
@@ -283,11 +286,13 @@ class CommonWidgets {
                                   products[index].name, products[index].price),
                               //add , num of items in ordere , delete
                               CommonWidgets.addRemoveRow(
-                                  context,
-                                  shoppingCartProvider,
-                                  products[index].id,
-                                  '  products[index].productColors[0].colourName',
-                                  ' products[index].productColors[0].hexValue.toString()')
+                                context,
+                                shoppingCartProvider,
+                                products[index].id,
+                                '  products[index].productColors[0].colourName',
+                                ' products[index].productColors[0].hexValue.toString()',
+                                products[index].apiFeaturedImage,
+                              )
                             ],
                           )),
                       //product img and fav icon

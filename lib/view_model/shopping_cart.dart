@@ -10,7 +10,7 @@ class ShoppingCartVM extends ChangeNotifier {
   String orderColorName = '';
   String orderColorHexa = '';
 
-  addItem(int id, String colorName, String colorHexa) {
+  addItem(int id, String colorName, String colorHexa, String imgUrl) {
     //int foundAtIndex = isInCart(id);
     // foundAtIndex >=0 if element found
     /*if (isInCart(id) >= 0) {
@@ -22,7 +22,8 @@ class ShoppingCartVM extends ChangeNotifier {
 
       notifyListeners();
     } else {*/
-    ordersList.add(Order(id, colorName, colorHexa));
+    ordersList.add(Order(id, colorName, colorHexa, imgUrl));
+    log(imgUrl);
     addToPieceNum(id);
     itemsNum++;
     // ordersList[foundAtIndex].colorHexa = colorHexa;
@@ -35,11 +36,14 @@ class ShoppingCartVM extends ChangeNotifier {
     int foundAtIndex = isInCart(id);
     // foundAtIndex >=0 if element found
     if (isInCart(id) >= 0) {
-      if (ordersList[foundAtIndex].num > 0) {
+      if (ordersList[foundAtIndex].num > 1) {
         ordersList[foundAtIndex].num--;
         itemsNum--;
-        notifyListeners();
+      } else {
+        ordersList.removeAt(foundAtIndex);
+        log('removed');
       }
+      notifyListeners();
     } else {
       null;
     }
@@ -119,7 +123,8 @@ class Order {
   int num = 1;
   String colorName = '';
   String colorHexa = '';
-  Order(this.id, this.colorName, this.colorHexa);
+  String imgUrl = '';
+  Order(this.id, this.colorName, this.colorHexa, this.imgUrl);
 }
 
 class PieceColor {

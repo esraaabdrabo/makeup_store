@@ -20,7 +20,12 @@ class ShoppingCart extends StatelessWidget {
             : ListView.builder(
                 itemCount: ordersList.length,
                 itemBuilder: (context, index) {
-                  return Text(ordersList[index].id.toString());
+                  return Column(
+                    children: [
+                      Image.network('http:${ordersList[index].imgUrl}'),
+                      Text(ordersList[index].id.toString()),
+                    ],
+                  );
                 }));
   }
 }

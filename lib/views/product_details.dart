@@ -92,14 +92,20 @@ class ProductDetails extends StatelessWidget {
                       ),
                     )
                   : Container(),
-              product.productColors.isNotEmpty
-                  ? vertcalSpace()
-                  : Container(), //add remove row
+              product.productColors.isNotEmpty ? vertcalSpace() : Container(),
+              //add remove row
               SizedBox(
                   width: MediaQuery.of(context).size.width * .4,
                   child: CommonWidgets.addRemoveRow(
-                      context, shoppingCartProvider, product.id, '', '', true)),
+                      context,
+                      shoppingCartProvider,
+                      product.id,
+                      '',
+                      '',
+                      product.apiFeaturedImage,
+                      true)),
               vertcalSpace(),
+              //add to cart btn
               ElevatedButton(
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(EdgeInsets.all(
@@ -110,7 +116,8 @@ class ProductDetails extends StatelessWidget {
                     shoppingCartProvider.addItem(
                         product.id,
                         shoppingCartProvider.orderColorName,
-                        shoppingCartProvider.orderColorHexa);
+                        shoppingCartProvider.orderColorHexa,
+                        product.apiFeaturedImage);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
