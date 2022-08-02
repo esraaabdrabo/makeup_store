@@ -1,40 +1,29 @@
-import 'dart:developer';
-
+import 'dart:math';
 import 'package:flutter/material.dart';
 
 class ShoppingCartVM extends ChangeNotifier {
   int itemsNum = 0;
+  double totalPrice = 0;
   List<Order> ordersList = [];
   List<PieceNum> pieceNum = [];
   String seletectColor = '';
   String orderColorName = '';
   String orderColorHexa = '';
 
-  addItem(int id, int num, String colorName, String colorHexa, String imgUrl) {
-    //int foundAtIndex = isInCart(id);
-    // foundAtIndex >=0 if element found
-    /*if (isInCart(id) >= 0) {
-      ordersList[foundAtIndex].num++;
-      ordersList[foundAtIndex].colorHexa = colorHexa;
-      ordersList[foundAtIndex].colorName = colorName;
+  addItem(int id, int num, String colorName, String colorHexa, String imgUrl,
+      String price) {
+    ordersList.add(Order(id, num, colorName, colorHexa, imgUrl, price));
 
-      itemsNum++;
-
-      notifyListeners();
-    } else {*/
-    ordersList.add(Order(id, num, colorName, colorHexa, imgUrl));
-    log(imgUrl);
+    totalPrice = (totalPrice + double.parse(price) * num);
+    totalPrice = totalPrice.ceilToDouble();
     addToPieceNum(id);
-    itemsNum++;
-    // ordersList[foundAtIndex].colorHexa = colorHexa;
-    //ordersList[foundAtIndex].colorName = colorName;
+    itemsNum = itemsNum + num;
     orderColorHexa = '';
     orderColorName = '';
     seletectColor = '';
     var foundat = isInPieceNum(id);
     pieceNum.removeAt(foundat);
     notifyListeners();
-    //  }
   }
 
   deleteItem(int id) {
@@ -46,7 +35,6 @@ class ShoppingCartVM extends ChangeNotifier {
         itemsNum--;
       } else {
         ordersList.removeAt(foundAtIndex);
-        log('removed');
       }
       notifyListeners();
     } else {
@@ -77,7 +65,6 @@ class ShoppingCartVM extends ChangeNotifier {
   void addToPieceNum(int id) {
     if (pieceNum.isEmpty) {
       pieceNum.add(PieceNum(id));
-      log('added');
     } else if (isInPieceNum(id) >= 0) {
       int foundAt = isInPieceNum(id);
       pieceNum[foundAt].num++;
@@ -127,7 +114,9 @@ class Order {
   String colorName = '';
   String colorHexa = '';
   String imgUrl = '';
-  Order(this.id, this.num, this.colorName, this.colorHexa, this.imgUrl);
+  String price = '';
+  Order(this.id, this.num, this.colorName, this.colorHexa, this.imgUrl,
+      this.price);
 }
 
 class PieceColor {
