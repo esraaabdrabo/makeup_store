@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:store/views/Home_Fragment/brands.dart';
-
-import 'views/home.dart';
+import 'package:provider/provider.dart';
+import 'package:store/view_model/shopping_cart.dart';
+import 'package:store/views/brands.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,8 +13,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Brands(),
-    );
+    return ChangeNotifierProvider(
+        create: (context) => ShoppingCartVM(),
+        builder: (context, child) {
+          return const MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: Brands(),
+          );
+        });
   }
 }

@@ -51,8 +51,14 @@ class Product {
   Product.fromJson(Map<String, dynamic> json) {
     if (json["id"] is int) id = json["id"];
     if (json["brand"] is String) brand = json["brand"];
-    if (json["name"] is String) name = json["name"];
-    if (json["price"] is String) price = json["price"];
+    if (json["name"] is String) {
+      name = json["name"];
+      name = name.trim();
+    }
+    if (json["price"] is String) {
+      price = json["price"];
+      price = price.trim();
+    }
     if (json["price_sign"] is String) priceSign = json["price_sign"];
     if (json["currency"] is String) currency = json["currency"];
     if (json["image_link"] is String) imageLink = json["image_link"];
@@ -117,14 +123,14 @@ class ProductColors {
   ProductColors({required this.hexValue, required this.colourName});
 
   ProductColors.fromJson(Map<String, dynamic> json) {
-    if (json["hex_value"] is String) this.hexValue = json["hex_value"];
-    if (json["colour_name"] is String) this.colourName = json["colour_name"];
+    if (json["hex_value"] is String) hexValue = json["hex_value"];
+    if (json["colour_name"] is String) colourName = json["colour_name"];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data["hex_value"] = this.hexValue;
-    data["colour_name"] = this.colourName;
+    data["hex_value"] = hexValue;
+    data["colour_name"] = colourName;
     return data;
   }
 }

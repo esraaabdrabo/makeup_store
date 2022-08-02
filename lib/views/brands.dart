@@ -1,21 +1,28 @@
-import 'package:flutter/material.dart';
+import 'dart:developer';
 
-import '../../view_model/home.dart';
-import '../../widgets/commonWidgets.dart';
-import '../brand.dart';
-import '../drawer.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:store/views/products.dart/brand_products.dart';
+
+import '../view_model/home.dart';
+import '../view_model/shopping_cart.dart';
+import '../widgets/commonWidgets.dart';
+import 'drawer.dart';
 
 class Brands extends StatelessWidget {
   const Brands({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    ShoppingCartVM shoppingCartProvider = Provider.of(context);
+
     List<String> brands = HomeVM.brands;
 
     return Scaffold(
       drawer: const RedDrawer(),
       extendBody: true,
-      appBar: CommonWidgets.appBAR(),
+      appBar: CommonWidgets.appBAR(
+          context, shoppingCartProvider.itemsNum.toString()),
       body: Column(
         children: [
           const SizedBox(
@@ -37,7 +44,8 @@ class Brands extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: ((context) => Brand(brands[index]))));
+                              builder: ((context) =>
+                                  BrandProducts(brands[index]))));
                     },
                     child: CommonWidgets.brandNameBtn(context, brands[index]));
               },

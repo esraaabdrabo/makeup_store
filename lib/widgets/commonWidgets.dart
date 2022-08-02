@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:store/myThemeData.dart';
+import 'package:store/views/product_details.dart';
+import 'package:store/views/shopping_cart.dart';
+
+import '../models/product.dart';
+import '../view_model/favourite.dart';
+import '../view_model/shopping_cart.dart';
 
 int colorIndex = 0;
 
@@ -18,12 +24,52 @@ class CommonWidgets {
     );
   }
 
-  static PreferredSizeWidget appBAR() {
+  static PreferredSizeWidget appBAR(BuildContext context, String itemsNum) {
     return AppBar(
-        backgroundColor: myThemeData.themeData.colorScheme.secondary,
+        iconTheme:
+            IconThemeData(color: myThemeData.themeData.colorScheme.secondary),
+        actions: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              //shopping cart
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ShoppingCart()));
+                },
+                child: Column(
+                  children: [
+                    Text(
+                      itemsNum,
+                      style: TextStyle(color: myThemeData.bluecolor),
+                    ),
+                    const Icon(Icons.shopping_cart),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * .03,
+                width: MediaQuery.of(context).size.width * .06,
+                child:
+                    VerticalDivider(color: myThemeData.bluecolor, thickness: 3),
+              ),
+              InkWell(onTap: () {}, child: const Icon(Icons.person)),
+
+              SizedBox(width: MediaQuery.of(context).size.width * .08),
+              // MediaQuery.of(context).size.width*.05,)
+            ],
+          )
+        ],
+        backgroundColor: Colors.white,
         title: Text(
           'Royal',
-          style: TextStyle(letterSpacing: 2, shadows: myThemeData.appbarShadow),
+          style: TextStyle(
+              letterSpacing: 2,
+              color: myThemeData.themeData.colorScheme.secondary,
+              shadows: myThemeData.appbarShadow),
         ),
         centerTitle: true,
         shape: const RoundedRectangleBorder(
@@ -51,7 +97,7 @@ class CommonWidgets {
                 Color.fromARGB(255, 165, 49, 49),
                 Color.fromARGB(255, 34, 4, 4)
               ]),
-          borderRadius: const BorderRadius.all(Radius.circular(100))),
+          borderRadius: BorderRadius.all(Radius.circular(100))),
       child: Center(
         child: Text(
           title,
@@ -109,5 +155,192 @@ class CommonWidgets {
                 fontSize: 23, color: Color.fromARGB(255, 255, 255, 255)),
           ))),
     );
+  }
+
+  static Widget prodNamePrice(BuildContext context, String name, String price) {
+    return Column(
+      children: [
+        Text(
+          name,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 16, color: Colors.white),
+        ),
+        Divider(
+          color: myThemeData.coffecolor,
+          endIndent: 50,
+          indent: 50,
+          height: MediaQuery.of(context).size.height * .02,
+        ),
+        //price
+        Text(
+          '$price \$',
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+              fontSize: 12, color: Color.fromARGB(148, 255, 255, 255)),
+        ),
+      ],
+    );
+  }
+
+  static Widget prodImg(BuildContext context, String url) {
+    return Container(
+      alignment: Alignment.center,
+      color: Colors.white,
+      width: MediaQuery.of(context).size.width * .5,
+      child: Image.network(
+        'http:$url}',
+        fit: BoxFit.fill,
+      ),
+    );
+  }
+
+  static Widget addRemoveRow(
+      BuildContext context,
+      ShoppingCartVM shoppingCartProvider,
+      int id,
+      String colorName,
+      String colorHexa,
+      String imgUrl,
+      [bool isCircleBtnDec = false]) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        //add icon
+        Container(
+          height: MediaQuery.of(context).size.height * .04,
+          width: MediaQuery.of(context).size.height * .04,
+          decoration: isCircleBtnDec ? myThemeData.circleBtnDec : null,
+          child: IconButton(
+              onPressed: () {
+                shoppingCartProvider.addItem(
+                    id, 'colorName', 'colorHexa', imgUrl);
+              },
+              icon: Icon(
+                Icons.add,
+                color: isCircleBtnDec ? myThemeData.movcolor : Colors.white,
+                size: isCircleBtnDec ? 15 : 20,
+              )),
+        ),
+        //order number
+        Text(
+          shoppingCartProvider.getproductOrderNum(id),
+          style: const TextStyle(color: Colors.white),
+        ),
+//delete icon
+        Container(
+          height: MediaQuery.of(context).size.height * .04,
+          width: MediaQuery.of(context).size.height * .04,
+          decoration: isCircleBtnDec ? myThemeData.circleBtnDec : null,
+          child: IconButton(
+              onPressed: () {
+                shoppingCartProvider.removeFromPieceNum(id);
+                shoppingCartProvider.deleteItem(id);
+              },
+              icon: Icon(
+                Icons.remove,
+                color: isCircleBtnDec ? myThemeData.movcolor : Colors.white,
+                size: isCircleBtnDec ? 15 : 20,
+              )),
+        ),
+      ],
+    );
+  }
+
+  static Widget productsListView(
+      List<Product> products,
+      ShoppingCartVM shoppingCartProvider,
+      FavouriteVM favProvider,
+      BuildContext context) {
+    return ListView.builder(
+        itemCount: products.length,
+        itemBuilder: (context, index) {
+          return Column(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * .02,
+              ),
+              //upper white line
+              Container(
+                color: Colors.white,
+                height: MediaQuery.of(context).size.height * .02,
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ProductDetails(products[index])));
+                },
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      //product details
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width * .4,
+                          child: Column(
+                            children: [
+                              //name divider price
+                              CommonWidgets.prodNamePrice(context,
+                                  products[index].name, products[index].price),
+                              //add , num of items in ordere , delete
+                              CommonWidgets.addRemoveRow(
+                                context,
+                                shoppingCartProvider,
+                                products[index].id,
+                                '  products[index].productColors[0].colourName',
+                                ' products[index].productColors[0].hexValue.toString()',
+                                products[index].apiFeaturedImage,
+                              )
+                            ],
+                          )),
+                      //product img and fav icon
+                      Stack(children: [
+                        CommonWidgets.prodImg(
+                            context, products[index].apiFeaturedImage),
+                        //fav
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * .5,
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                //fav icon
+                                Container(
+                                  decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(100))),
+                                  child: IconButton(
+                                      onPressed: () {
+                                        if (favProvider.favList
+                                            .contains(products[index])) {
+                                          favProvider.removeFromFav(
+                                              products[index].id);
+                                        } else {
+                                          favProvider.addToFav(products[index]);
+                                        }
+                                      },
+                                      icon: Icon(
+                                        favProvider.favList
+                                                .contains(products[index])
+                                            ? Icons.favorite
+                                            : Icons.favorite_border,
+                                        color: Colors.red,
+                                      )),
+                                ),
+                              ]),
+                        ),
+                      ])
+                    ]),
+              ),
+              //lower white line
+              Container(
+                color: Colors.white,
+                height: MediaQuery.of(context).size.height * .02,
+              )
+            ],
+          );
+        });
   }
 }

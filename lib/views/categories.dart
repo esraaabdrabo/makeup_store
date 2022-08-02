@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:store/view_model/shopping_cart.dart';
 
-import '../../view_model/home.dart';
-import '../../widgets/commonWidgets.dart';
-import '../category.dart';
-import '../drawer.dart';
+import '../view_model/home.dart';
+import '../widgets/commonWidgets.dart';
+import 'products.dart/category_products.dart';
+import 'drawer.dart';
 
 class Categories extends StatelessWidget {
   const Categories({Key? key}) : super(key: key);
@@ -11,11 +13,13 @@ class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> categories = HomeVM.categories;
-
+    ShoppingCartVM shoppingCartProvider = Provider.of(context);
     return Scaffold(
+      drawerScrimColor: Colors.amber,
       drawer: const RedDrawer(),
       extendBody: true,
-      appBar: CommonWidgets.appBAR(),
+      appBar: CommonWidgets.appBAR(
+          context, shoppingCartProvider.itemsNum.toString()),
       body: Column(
         children: [
           const SizedBox(
@@ -37,7 +41,8 @@ class Categories extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Categroy(categories[index]),
+                            builder: (context) =>
+                                CategoryProducts(categories[index]),
                           ));
                     },
                     child:

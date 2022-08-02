@@ -42,4 +42,9 @@ class myThemeData {
   static Color movcolor = const Color(0xff9C3D54);
   static Color bluecolor = const Color(0xffF676FA3);
   static Color darkRedColor = const Color(0xff911F27);
+
+  static BoxDecoration circleBtnDec = const BoxDecoration(
+    borderRadius: BorderRadius.all(Radius.circular(100)),
+    color: Color.fromARGB(151, 255, 255, 255),
+  );
 }
