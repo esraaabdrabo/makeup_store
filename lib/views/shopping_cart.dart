@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:store/myThemeData.dart';
 import 'package:store/view_model/shopping_cart.dart';
 import 'package:store/widgets/commonWidgets.dart';
 
@@ -36,6 +38,7 @@ class ShoppingCart extends StatelessWidget {
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
                               children: [
+                                //details row (img and texts)
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
@@ -67,9 +70,15 @@ class ShoppingCart extends StatelessWidget {
                                                     MediaQuery.of(context)
                                                             .size
                                                             .width *
-                                                        .05),
+                                                        .02),
                                               ),
                                             ],
+                                          ),
+                                          SizedBox(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                .01,
                                           ),
                                           //selected  color name
                                           ordersList[index].colorName.trim() !=
@@ -77,47 +86,157 @@ class ShoppingCart extends StatelessWidget {
                                               ? Text(
                                                   'Color Name : ${ordersList[index].colorName}')
                                               : Container(),
+                                          SizedBox(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                .01,
+                                          ),
                                           //number of pieces
                                           Text(
                                               'Number Of Pieces : ${ordersList[index].num.toString()}'),
+                                          SizedBox(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                .01,
+                                          ),
                                           Text(
                                               'Price : ${ordersList[index].price}')
                                         ],
                                       ),
                                     ),
-                                    SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
+                                    Container(
+                                      color: myThemeData.movcolor,
+                                      child: Column(
+                                        children: [
+                                          //img
+                                          Container(
+                                            color: Colors.white,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
                                                 .3,
-                                        height:
-                                            MediaQuery.of(context).size.width *
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
                                                 .3,
-                                        child: Image.network(
-                                            'http:${ordersList[index].imgUrl}')),
+                                            child: Image.network(
+                                              'http:${ordersList[index].imgUrl}',
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
+                                          //delete
+                                          ElevatedButton(
+                                              style: ButtonStyle(
+                                                  elevation:
+                                                      MaterialStateProperty.all(
+                                                          0),
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all(
+                                                          myThemeData
+                                                              .movcolor)),
+                                              onPressed: () {
+                                                shoppingCartProvider
+                                                    .deleteFromOrderList(
+                                                        ordersList[index].id,
+                                                        ordersList[index]
+                                                            .colorHexa,
+                                                        ordersList[index].num);
+                                              },
+                                              child:
+                                                  //delete text and delete icon
+                                                  Row(
+                                                children: [
+                                                  const Text(
+                                                    'Delete',
+                                                    style:
+                                                        TextStyle(fontSize: 14),
+                                                  ),
+                                                  SizedBox(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            .05,
+                                                  ),
+                                                  const Icon(
+                                                    Icons.delete,
+                                                    size: 17,
+                                                  ),
+                                                ],
+                                              )),
+                                        ],
+                                      ),
+                                    ),
                                   ],
                                 ),
+                                //Remove From Cart
                                 index == ordersList.length - 1
-                                    ? Text(
-                                        'Total ${shoppingCartProvider.totalPrice} ')
+                                    ?
+                                    //total price
+                                    Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.stretch,
+                                        children: [
+                                          //total
+                                          Container(
+                                            margin: EdgeInsets.only(
+                                              top: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  .15,
+                                            ),
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: myThemeData
+                                                        .coffecolor
+                                                        .withAlpha(100))),
+                                            padding: const EdgeInsets.all(25),
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            child: Text(
+                                              'Total :  ${shoppingCartProvider.totalPrice} ',
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                          ElevatedButton(
+                                              onPressed: () {},
+                                              style: ButtonStyle(
+                                                backgroundColor:
+                                                    MaterialStateProperty.all(
+                                                        myThemeData.coffecolor),
+                                              ),
+                                              //check out btn
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  //Check out
+                                                  const Text(
+                                                    "Check out",
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        letterSpacing: 2),
+                                                  ),
+
+                                                  SizedBox(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            .05,
+                                                  ),
+                                                  const Icon(
+                                                    Icons.check_outlined,
+                                                    size: 20,
+                                                  )
+                                                ],
+                                              ))
+                                        ],
+                                      )
                                     : Container(),
-                                ElevatedButton(
-                                    style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all(
-                                                const Color(0xFFFFFFFF))),
-                                    onPressed: () {
-                                      shoppingCartProvider.deleteFromOrderList(
-                                          ordersList[index].id,
-                                          ordersList[index].colorHexa,
-                                          ordersList[index].num);
-                                    },
-                                    child: const Text(
-                                      'Remove From Cart',
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          color: Color.fromARGB(117, 0, 0, 0),
-                                          fontWeight: FontWeight.w400),
-                                    ))
                               ],
                             ),
                           ));

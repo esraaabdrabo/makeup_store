@@ -48,6 +48,9 @@ class ShoppingCartVM extends ChangeNotifier {
         element.colorHexa == colorHexa &&
         element.num == num);
     itemsNum = itemsNum - ordersList[foundAtIndex].num;
+    totalPrice = totalPrice -
+        double.parse(ordersList[foundAtIndex].price) *
+            ordersList[foundAtIndex].num;
     ordersList.removeAt(foundAtIndex);
     notifyListeners();
   }
