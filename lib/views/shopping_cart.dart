@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:store/models/product.dart';
 import 'package:store/myThemeData.dart';
 import 'package:store/view_model/shopping_cart.dart';
+import 'package:store/views/drawer.dart';
 import 'package:store/views/product_details.dart';
 import 'package:store/widgets/commonWidgets.dart';
 
@@ -15,6 +16,7 @@ class ShoppingCart extends StatelessWidget {
     ShoppingCartVM shoppingCartProvider = Provider.of(context);
     List<Order> ordersList = shoppingCartProvider.ordersList;
     return Scaffold(
+        drawer: RedDrawer(),
         appBar: CommonWidgets.appBAR(
             context, shoppingCartProvider.itemsNum.toString()),
         body: ordersList.isEmpty
