@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:store/view_model/favourite.dart';
 import 'package:store/view_model/shopping_cart.dart';
 import 'package:store/views/brands.dart';
 
@@ -14,12 +15,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => ShoppingCartVM(),
+        create: (context) => FavouriteVM(),
         builder: (context, child) {
-          return const MaterialApp(
-            debugShowCheckedModeBanner: false,
-            home: Brands(),
-          );
+          return ChangeNotifierProvider(
+              create: (context) => ShoppingCartVM(),
+              builder: (context, child) {
+                return const MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  home: Brands(),
+                );
+              });
         });
   }
 }
