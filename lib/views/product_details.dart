@@ -124,6 +124,7 @@ class ProductDetails extends StatelessWidget {
                     if (shoppingCartProvider.orderColorHexa != '' &&
                         numOfPieces != 0) {
                       shoppingCartProvider.addItem(
+                          product,
                           product.id,
                           numOfPieces,
                           shoppingCartProvider.orderColorName,

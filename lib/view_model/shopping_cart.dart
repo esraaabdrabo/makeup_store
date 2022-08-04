@@ -1,18 +1,26 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:store/models/product.dart';
 
 class ShoppingCartVM extends ChangeNotifier {
   int itemsNum = 0;
   double totalPrice = 0;
   List<Order> ordersList = [];
   List<PieceNum> pieceNum = [];
+  List<Product> addedProducts = [];
   String seletectColor = '';
   String orderColorName = '';
   String orderColorHexa = '';
 
-  addItem(int id, int num, String colorName, String colorHexa, String imgUrl,
-      String price) {
+  addItem(Product product, int id, int num, String colorName, String colorHexa,
+      String imgUrl, String price) {
     ordersList.add(Order(id, num, colorName, colorHexa, imgUrl, price));
+
+    //to make the product inkwell in shopping cart
+    //view go to the product details with the product
+    if (!addedProducts.contains(product)) {
+      addedProducts.add(product);
+    }
 
     totalPrice = (totalPrice + double.parse(price) * num);
     totalPrice = totalPrice.ceilToDouble();
@@ -53,6 +61,16 @@ class ShoppingCartVM extends ChangeNotifier {
             ordersList[foundAtIndex].num;
     ordersList.removeAt(foundAtIndex);
     notifyListeners();
+  }
+
+//return specific product from added product list by id
+  Product searchInAddedListWithId(int id) {
+    log(3);
+
+    Iterable<Product> product =
+        addedProducts.where((element) => element.id == id);
+
+    return product.first;
   }
 
 //search for certain id in order list

@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:store/models/product.dart';
 import 'package:store/myThemeData.dart';
 import 'package:store/view_model/shopping_cart.dart';
+import 'package:store/views/product_details.dart';
 import 'package:store/widgets/commonWidgets.dart';
 
 class ShoppingCart extends StatelessWidget {
@@ -33,7 +35,15 @@ class ShoppingCart extends StatelessWidget {
                     itemCount: ordersList.length,
                     itemBuilder: (context, index) {
                       return InkWell(
-                          onTap: () async {},
+                          onTap: () {
+                            Product clickedProduct = shoppingCartProvider
+                                .searchInAddedListWithId(ordersList[index].id);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ProductDetails(clickedProduct)));
+                          },
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
@@ -102,12 +112,14 @@ class ShoppingCart extends StatelessWidget {
                                                 .01,
                                           ),
                                           Text(
-                                              'Price : ${ordersList[index].price}')
+                                              'Price : ${ordersList[index].price} \$')
                                         ],
                                       ),
                                     ),
+                                    //img and btn co
                                     Container(
-                                      color: myThemeData.movcolor,
+                                      color:
+                                          myThemeData.coffecolor.withAlpha(50),
                                       child: Column(
                                         children: [
                                           //img
@@ -127,6 +139,18 @@ class ShoppingCart extends StatelessWidget {
                                             ),
                                           ),
                                           //delete
+                                          //space between img and btn (white)
+                                          Container(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                .01,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                .2,
+                                            color: Colors.white,
+                                          ),
                                           ElevatedButton(
                                               style: ButtonStyle(
                                                   elevation:
@@ -134,8 +158,7 @@ class ShoppingCart extends StatelessWidget {
                                                           0),
                                                   backgroundColor:
                                                       MaterialStateProperty.all(
-                                                          myThemeData
-                                                              .movcolor)),
+                                                          Colors.white)),
                                               onPressed: () {
                                                 shoppingCartProvider
                                                     .deleteFromOrderList(
@@ -148,10 +171,13 @@ class ShoppingCart extends StatelessWidget {
                                                   //delete text and delete icon
                                                   Row(
                                                 children: [
-                                                  const Text(
+                                                  Text(
                                                     'Delete',
-                                                    style:
-                                                        TextStyle(fontSize: 14),
+                                                    style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: myThemeData
+                                                          .darkRedColor,
+                                                    ),
                                                   ),
                                                   SizedBox(
                                                     width:
@@ -160,9 +186,11 @@ class ShoppingCart extends StatelessWidget {
                                                                 .width *
                                                             .05,
                                                   ),
-                                                  const Icon(
+                                                  Icon(
                                                     Icons.delete,
                                                     size: 17,
+                                                    color: myThemeData
+                                                        .darkRedColor,
                                                   ),
                                                 ],
                                               )),
