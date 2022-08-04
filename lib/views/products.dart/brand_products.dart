@@ -24,25 +24,21 @@ class _BrandProductsState extends State<BrandProducts> {
   Widget build(BuildContext context) {
     ShoppingCartVM shoppingCartProvider = Provider.of(context);
 
+    FavouriteVM favProvider = Provider.of(context);
     return ChangeNotifierProvider(
-        create: (context) => FavouriteVM(),
+        create: (context) => BrandVM(widget.brandName),
         builder: (context, child) {
-          FavouriteVM favProvider = Provider.of(context);
-          return ChangeNotifierProvider(
-              create: (context) => BrandVM(widget.brandName),
-              builder: (context, child) {
-                BrandVM provider = Provider.of(context);
-                List<Product> products = provider.products;
+          BrandVM provider = Provider.of(context);
+          List<Product> products = provider.products;
 
-                return Scaffold(
-                    backgroundColor: myThemeData.movcolor,
-                    appBar: CommonWidgets.appBAR(
-                        context, shoppingCartProvider.itemsNum.toString()),
-                    body: provider.isLoading
-                        ? const Center(child: CircularProgressIndicator())
-                        : CommonWidgets.productsListView(products,
-                            shoppingCartProvider, favProvider, context));
-              });
+          return Scaffold(
+              backgroundColor: myThemeData.movcolor,
+              appBar: CommonWidgets.appBAR(
+                  context, shoppingCartProvider.itemsNum.toString()),
+              body: provider.isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : CommonWidgets.productsListView(
+                      products, shoppingCartProvider, favProvider, context));
         });
   }
 }

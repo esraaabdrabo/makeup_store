@@ -18,24 +18,20 @@ class CategoryProducts extends StatelessWidget {
   Widget build(BuildContext context) {
     ShoppingCartVM shoppingCartProvider = Provider.of(context);
 
+    FavouriteVM favProvider = Provider.of(context);
     return ChangeNotifierProvider(
-        create: (context) => FavouriteVM(),
+        create: (context) => CategoryVM(brandName),
         builder: (context, child) {
-          FavouriteVM favProvider = Provider.of(context);
-          return ChangeNotifierProvider(
-              create: (context) => CategoryVM(brandName),
-              builder: (context, child) {
-                CategoryVM provider = Provider.of(context);
-                List<Product> products = provider.products;
-                return Scaffold(
-                    backgroundColor: myThemeData.movcolor,
-                    appBar: CommonWidgets.appBAR(
-                        context, shoppingCartProvider.itemsNum.toString()),
-                    body: provider.isLoading
-                        ? const Center(child: CircularProgressIndicator())
-                        : CommonWidgets.productsListView(products,
-                            shoppingCartProvider, favProvider, context));
-              });
+          CategoryVM provider = Provider.of(context);
+          List<Product> products = provider.products;
+          return Scaffold(
+              backgroundColor: myThemeData.movcolor,
+              appBar: CommonWidgets.appBAR(
+                  context, shoppingCartProvider.itemsNum.toString()),
+              body: provider.isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : CommonWidgets.productsListView(
+                      products, shoppingCartProvider, favProvider, context));
         });
   }
 }
