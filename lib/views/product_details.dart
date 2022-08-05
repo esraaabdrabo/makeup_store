@@ -127,6 +127,7 @@ class ProductDetails extends StatelessWidget {
                           product,
                           product.id,
                           numOfPieces,
+                          product.name,
                           shoppingCartProvider.orderColorName,
                           shoppingCartProvider.orderColorHexa,
                           product.apiFeaturedImage,

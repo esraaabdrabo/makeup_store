@@ -12,9 +12,9 @@ class ShoppingCartVM extends ChangeNotifier {
   String orderColorName = '';
   String orderColorHexa = '';
 
-  addItem(Product product, int id, int num, String colorName, String colorHexa,
-      String imgUrl, String price) {
-    ordersList.add(Order(id, num, colorName, colorHexa, imgUrl, price));
+  addItem(Product product, int id, int num, String name, String colorName,
+      String colorHexa, String imgUrl, String price) {
+    ordersList.add(Order(id, num, name, colorName, colorHexa, imgUrl, price));
 
     //to make the product inkwell in shopping cart
     //view go to the product details with the product
@@ -142,12 +142,13 @@ class PieceNum {
 class Order {
   int id;
   int num = 0;
+  String name = '';
   String colorName = '';
   String colorHexa = '';
   String imgUrl = '';
   String price = '';
-  Order(this.id, this.num, this.colorName, this.colorHexa, this.imgUrl,
-      this.price);
+  Order(this.id, this.num, this.name, this.colorName, this.colorHexa,
+      this.imgUrl, this.price);
 }
 
 class PieceColor {

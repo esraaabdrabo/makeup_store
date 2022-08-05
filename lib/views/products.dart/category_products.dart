@@ -25,7 +25,7 @@ class CategoryProducts extends StatelessWidget {
           CategoryVM provider = Provider.of(context);
           List<Product> products = provider.products;
           return Scaffold(
-              backgroundColor: myThemeData.movcolor,
+              backgroundColor: myThemeData.bluecolor,
               appBar: CommonWidgets.appBAR(
                   context, shoppingCartProvider.itemsNum.toString()),
               body: provider.isLoading

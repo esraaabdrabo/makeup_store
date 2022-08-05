@@ -7,27 +7,33 @@ import '../models/product.dart';
 import '../view_model/favourite.dart';
 import '../view_model/shopping_cart.dart';
 
-int colorIndex = 0;
+import 'package:google_fonts/google_fonts.dart';
 
 class CommonWidgets {
   static Widget drawerRow(
       BuildContext context, Function() navigateFun, String title, Icon icon) {
     return Container(
-      color: myThemeData.coffecolor,
+      color: myThemeData.offWhightcolor,
       padding: const EdgeInsets.all(25),
+      width: MediaQuery.of(context).size.width * .5,
       child: InkWell(
           onTap: navigateFun,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [Text(title), icon],
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                title,
+                style: myThemeData.drawerBtnTextStyle,
+              ),
+              icon
+            ],
           )),
     );
   }
 
   static PreferredSizeWidget appBAR(BuildContext context, String itemsNum) {
     return AppBar(
-        iconTheme:
-            IconThemeData(color: myThemeData.themeData.colorScheme.secondary),
+        iconTheme: IconThemeData(color: myThemeData.bluecolor),
         actions: [
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -66,96 +72,43 @@ class CommonWidgets {
         backgroundColor: Colors.white,
         title: Text(
           'Royal',
-          style: TextStyle(
-            letterSpacing: 2,
-            color: myThemeData.themeData.colorScheme.secondary,
-            //  shadows: myThemeData.appbarShadow
-          ),
+          style: myThemeData.logoTextStyle,
         ),
         centerTitle: true,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(100))),
-        elevation: 5,
-        shadowColor: const Color.fromARGB(210, 255, 95, 170));
+        /*  shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(100))),*/
+        elevation: 3,
+        shadowColor: myThemeData.coffecolor);
   }
 
   static Widget brandCircle(BuildContext context, String title) {
     return Container(
       width: MediaQuery.of(context).size.width * .32,
       height: MediaQuery.of(context).size.height * .15,
-      decoration: const BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-                color: Color.fromARGB(146, 125, 124, 124),
-                blurRadius: 12,
-                offset: Offset(-15, 15))
-          ],
-          gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [
-                Color.fromARGB(255, 251, 61, 93),
-                Color.fromARGB(255, 165, 49, 49),
-                Color.fromARGB(255, 34, 4, 4)
-              ]),
-          borderRadius: BorderRadius.all(Radius.circular(100))),
+      decoration: myThemeData.redCircleDecoration,
       child: Center(
-        child: Text(
-          title,
-          style: const TextStyle(
-              color: Colors.white,
-              letterSpacing: 2,
-              shadows: [BoxShadow(color: Color(0xff906C6C))]),
-        ),
+        child: Text(title, style: myThemeData.redCircleTextStyle),
       ),
     );
   }
 
   static Widget brandNameBtn(BuildContext context, String name) {
-    Color colorGenerate() {
-      if (colorIndex == 0) {
-        colorIndex++;
-
-        return myThemeData.bluecolor;
-      } else if (colorIndex == 1) {
-        colorIndex++;
-        return myThemeData.coffecolor;
-      } else if (colorIndex == 2) {
-        colorIndex++;
-        return myThemeData.movcolor;
-      } else {
-        colorIndex = 0;
-        return myThemeData.darkRedColor;
-      }
-    }
-
     return Container(
-      width: MediaQuery.of(context).size.width * .25,
-      height: MediaQuery.of(context).size.height * .07,
-      decoration: BoxDecoration(
-        color: colorGenerate(),
-        boxShadow: const [
-          BoxShadow(
-              color: Color.fromARGB(255, 125, 124, 124),
-              blurRadius: 2,
-              offset: Offset(1, 0)),
-          BoxShadow(
-              color: Color.fromARGB(255, 203, 197, 197),
-              blurRadius: 2,
-              offset: Offset(-1, 0))
-        ],
-      ),
-      child: Container(
+        width: MediaQuery.of(context).size.width * .25,
+        height: MediaQuery.of(context).size.height * .07,
+        decoration: myThemeData.brandNameBtnDecoration,
+        child: Container(
           padding: const EdgeInsets.all(15),
           width: MediaQuery.of(context).size.width * .1,
           child: Center(
-              child: Text(
-            name,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-                fontSize: 23, color: Color.fromARGB(255, 255, 255, 255)),
-          ))),
-    );
+              child: Text(name,
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.aBeeZee(
+                    textStyle: const TextStyle(
+                        fontSize: 18,
+                        color: Color.fromARGB(166, 255, 255, 255)),
+                  ))),
+        ));
   }
 
   static Widget prodNamePrice(BuildContext context, String name, String price) {

@@ -12,47 +12,76 @@ class RedDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: myThemeData.darkRedColor,
-      child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+      color: Colors.white,
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        //brand name
         SizedBox(
           height: MediaQuery.of(context).size.height * .15,
-          child: const Padding(
-            padding: EdgeInsets.only(top: 50),
-            child: Text(
-              'Royal',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 25,
-                letterSpacing: 2,
-              ),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 50),
+            child: Column(
+              children: [
+                Text('Royal',
+                    style: myThemeData.logoTextStyle.copyWith(fontSize: 35)),
+                Divider(
+                  thickness: 2,
+                  color: myThemeData.offWhightcolor,
+                  indent: 100,
+                  endIndent: 100,
+                )
+              ],
             ),
           ),
         ),
+        //categories
         CommonWidgets.drawerRow(context, () {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => const Categories()));
-        }, 'Categories', const Icon(Icons.category)),
+        },
+            'Categories',
+            Icon(
+              Icons.category,
+              color: myThemeData.movcolor,
+            )),
         SizedBox(
           height: MediaQuery.of(context).size.height * .05,
         ),
+        //Brands
         CommonWidgets.drawerRow(context, () {
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => const Brands()));
-        }, 'Brands', const Icon(Icons.category)),
+        },
+            'Brands',
+            const Icon(
+              Icons.star,
+              color: Colors.orangeAccent,
+            )),
         SizedBox(
           height: MediaQuery.of(context).size.height * .05,
         ),
+        //shopping cart
         CommonWidgets.drawerRow(context, () {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => const ShoppingCart()));
-        }, 'Shopping cart', const Icon(Icons.shopping_cart)),
+        },
+            'Shopping cart',
+            const Icon(
+              Icons.shopping_cart,
+              color: Colors.green,
+            )),
         SizedBox(
           height: MediaQuery.of(context).size.height * .05,
         ),
+        //favourite
         CommonWidgets.drawerRow(context, () {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => const Favourite()));
-        }, 'Favorite', const Icon(Icons.favorite))
+        },
+            'Favorite',
+            const Icon(
+              Icons.favorite,
+              color: Colors.red,
+            ))
       ]),
     );
   }

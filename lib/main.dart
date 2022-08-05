@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:store/myThemeData.dart';
 import 'package:store/view_model/favourite.dart';
 import 'package:store/view_model/shopping_cart.dart';
 import 'package:store/views/brands.dart';
@@ -20,9 +21,10 @@ class MyApp extends StatelessWidget {
           return ChangeNotifierProvider(
               create: (context) => ShoppingCartVM(),
               builder: (context, child) {
-                return const MaterialApp(
+                return MaterialApp(
+                  theme: myThemeData.themeData,
                   debugShowCheckedModeBanner: false,
-                  home: Brands(),
+                  home: const Brands(),
                 );
               });
         });

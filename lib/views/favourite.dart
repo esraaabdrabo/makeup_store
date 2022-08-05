@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:store/models/product.dart';
 import 'package:store/myThemeData.dart';
@@ -17,12 +18,14 @@ class Favourite extends StatelessWidget {
     ShoppingCartVM shoppingCartProvider = Provider.of(context);
 
     return Scaffold(
-      backgroundColor: myThemeData.movcolor,
+      backgroundColor: myThemeData.bluecolor,
       drawer: const RedDrawer(),
       appBar: CommonWidgets.appBAR(
           context, shoppingCartProvider.itemsNum.toString()),
       body: favList.isEmpty
-          ? const Center(child: Text('empty'))
+          ? Center(
+              child: Text('empty', style: myThemeData.emptyTextStyle),
+            )
           : Column(
               children: [
                 Expanded(
