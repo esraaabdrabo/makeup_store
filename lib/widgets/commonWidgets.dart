@@ -69,7 +69,7 @@ class CommonWidgets {
             ],
           )
         ],
-        backgroundColor: Colors.white,
+        backgroundColor: myThemeData.roseColor,
         title: Text(
           'Royal',
           style: myThemeData.logoTextStyle,
@@ -81,34 +81,39 @@ class CommonWidgets {
         shadowColor: myThemeData.coffecolor);
   }
 
-  static Widget brandCircle(BuildContext context, String title) {
-    return Container(
-      width: MediaQuery.of(context).size.width * .32,
+  static Widget pageTitle(BuildContext context, String title) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * .15,
-      decoration: myThemeData.redCircleDecoration,
       child: Center(
-        child: Text(title, style: myThemeData.redCircleTextStyle),
+        child: Text(title, style: myThemeData.pageTitle),
       ),
     );
   }
 
   static Widget brandNameBtn(BuildContext context, String name) {
     return Container(
-        width: MediaQuery.of(context).size.width * .25,
-        height: MediaQuery.of(context).size.height * .07,
-        decoration: myThemeData.brandNameBtnDecoration,
-        child: Container(
-          padding: const EdgeInsets.all(15),
-          width: MediaQuery.of(context).size.width * .1,
-          child: Center(
-              child: Text(name,
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.aBeeZee(
-                    textStyle: const TextStyle(
-                        fontSize: 18,
-                        color: Color.fromARGB(166, 255, 255, 255)),
-                  ))),
-        ));
+      decoration: BoxDecoration(
+        color: myThemeData.mintGreenColor,
+        borderRadius: BorderRadius.all(
+            Radius.circular(MediaQuery.of(context).size.width * .08)),
+      ),
+      padding: const EdgeInsets.all(0),
+      width: MediaQuery.of(context).size.width * .1,
+      child: Center(
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width * .2,
+          child: Text(name,
+              textAlign: TextAlign.center,
+              style: GoogleFonts.aBeeZee(
+                textStyle: TextStyle(
+                    fontSize: 14,
+                    color: myThemeData.bluecolor,
+                    letterSpacing: 1),
+              )),
+        ),
+      ),
+    );
   }
 
   static Widget prodNamePrice(BuildContext context, String name, String price) {
