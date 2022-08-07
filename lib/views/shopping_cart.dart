@@ -243,7 +243,7 @@ class ShoppingCart extends StatelessWidget {
                                           style: ButtonStyle(
                                             backgroundColor:
                                                 MaterialStateProperty.all(
-                                                    myThemeData.offWhightcolor),
+                                                    myThemeData.roseColor),
                                           ),
                                           //check out btn
                                           child: Row(

@@ -25,7 +25,7 @@ class RedDrawer extends StatelessWidget {
                     style: myThemeData.logoTextStyle.copyWith(fontSize: 35)),
                 Divider(
                   thickness: 2,
-                  color: myThemeData.offWhightcolor,
+                  color: myThemeData.bluecolor,
                   indent: 100,
                   endIndent: 100,
                 )
@@ -39,9 +39,9 @@ class RedDrawer extends StatelessWidget {
               MaterialPageRoute(builder: (context) => const Categories()));
         },
             'Categories',
-            Icon(
+            const Icon(
               Icons.category,
-              color: myThemeData.movcolor,
+              color: Color.fromARGB(220, 255, 77, 0),
             )),
         SizedBox(
           height: MediaQuery.of(context).size.height * .05,

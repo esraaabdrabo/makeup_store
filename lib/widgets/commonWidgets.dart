@@ -13,7 +13,7 @@ class CommonWidgets {
   static Widget drawerRow(
       BuildContext context, Function() navigateFun, String title, Icon icon) {
     return Container(
-      color: myThemeData.offWhightcolor,
+      color: myThemeData.roseColor,
       padding: const EdgeInsets.all(25),
       width: MediaQuery.of(context).size.width * .5,
       child: InkWell(
@@ -107,9 +107,9 @@ class CommonWidgets {
               textAlign: TextAlign.center,
               style: GoogleFonts.aBeeZee(
                 textStyle: TextStyle(
-                    fontSize: 14,
-                    color: myThemeData.bluecolor,
-                    letterSpacing: 1),
+                  fontSize: 16,
+                  color: myThemeData.bluecolor,
+                ),
               )),
         ),
       ),
@@ -179,7 +179,7 @@ class CommonWidgets {
               },
               icon: Icon(
                 Icons.add,
-                color: isCircleBtnDec ? myThemeData.movcolor : Colors.white,
+                color: isCircleBtnDec ? myThemeData.bluecolor : Colors.white,
                 size: isCircleBtnDec ? 15 : 20,
               )),
         ),
@@ -200,7 +200,7 @@ class CommonWidgets {
               },
               icon: Icon(
                 Icons.remove,
-                color: isCircleBtnDec ? myThemeData.movcolor : Colors.white,
+                color: isCircleBtnDec ? myThemeData.bluecolor : Colors.white,
                 size: isCircleBtnDec ? 15 : 20,
               )),
         ),

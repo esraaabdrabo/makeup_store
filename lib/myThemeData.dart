@@ -16,13 +16,9 @@ class myThemeData {
         //  shadows: myThemeData.appbarShadow
         ),
   );
-  static TextStyle drawerBtnTextStyle = GoogleFonts.yanoneKaffeesatz(
-    textStyle: TextStyle(
-        //    fontWeight: FontWeight.w100,
-        fontSize: 20,
-        fontStyle: FontStyle.italic,
-        color: myThemeData.bluecolor,
-        letterSpacing: 1),
+  static TextStyle drawerBtnTextStyle = GoogleFonts.k2d(
+    textStyle:
+        TextStyle(fontSize: 14, color: myThemeData.bluecolor, letterSpacing: 1),
   );
   static TextStyle pageTitle = GoogleFonts.k2d(
     textStyle: TextStyle(
@@ -97,15 +93,18 @@ class myThemeData {
       gradient: LinearGradient(colors: [Color(0xffFF1D42), Color(0xff1B0000)]));
 
   static Color orangecolor = const Color(0xffFF5B00);
-  static Color offWhightcolor = const Color.fromARGB(255, 247, 229, 163);
+  //static Color offWhightcolor = const Color.fromARGB(255, 247, 229, 163);
+
+  //in products details coffecolor is using with divider under the
+  //product name
   static Color coffecolor = const Color(0xffCA965C);
 
-  static Color movcolor = const Color(0xff9C3D54);
+  //static Color movcolor = const Color(0xff9C3D54);
   static Color bluecolor = const Color(0xffF676FA3);
   static Color darkRedColor = const Color(0xff911F27);
 
   static Color roseColor = const Color(0xffFEE7E6);
-  static Color mintGreenColor = Color.fromARGB(255, 247, 251, 248);
+  static Color mintGreenColor = const Color.fromARGB(255, 247, 251, 248);
   //used in add remove item row
   static BoxDecoration circleBtnDec = const BoxDecoration(
     borderRadius: BorderRadius.all(Radius.circular(100)),
