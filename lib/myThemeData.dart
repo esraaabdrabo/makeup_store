@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class myThemeData {
   static ThemeData themeData = ThemeData(
+    // primarySwatch: Colors.red,
     colorScheme:
         ColorScheme.fromSwatch().copyWith(secondary: Color(0xffBB142E)),
     primaryColor: const Color(0xffF9F9F9),
@@ -23,11 +24,18 @@ class myThemeData {
         color: myThemeData.bluecolor,
         letterSpacing: 1),
   );
-  static TextStyle redCircleTextStyle = GoogleFonts.k2d(
-    textStyle: const TextStyle(
-        color: Color.fromARGB(183, 255, 255, 255),
+  static TextStyle pageTitle = GoogleFonts.k2d(
+    textStyle: TextStyle(
         letterSpacing: 2,
-        shadows: [BoxShadow(color: Color(0xff906C6C))]),
+        color: myThemeData.bluecolor,
+        fontSize: 35,
+        fontWeight: FontWeight.bold,
+        shadows: const [
+          BoxShadow(
+              color: Color.fromARGB(134, 254, 231, 230),
+              offset: Offset(-12, 11),
+              blurRadius: 5)
+        ]),
   );
   static TextStyle emptyTextStyle = GoogleFonts.aBeeZee(
       textStyle: const TextStyle(color: Colors.white, fontSize: 35));
@@ -88,32 +96,6 @@ class myThemeData {
   var t = const BoxDecoration(
       gradient: LinearGradient(colors: [Color(0xffFF1D42), Color(0xff1B0000)]));
 
-  static List<BoxShadow> appbarShadow = const [
-    BoxShadow(
-        blurRadius: 7,
-        offset: Offset(-100, 25),
-        color: Color.fromARGB(211, 255, 218, 95)),
-    BoxShadow(
-        blurRadius: 8,
-        offset: Offset(50, -25),
-        color: Color.fromARGB(210, 146, 255, 95)),
-    BoxShadow(
-        blurRadius: 10,
-        offset: Offset(130, 25),
-        color: Color.fromARGB(210, 95, 154, 255)),
-    BoxShadow(
-        blurRadius: 10,
-        offset: Offset(-130, -25),
-        color: Color.fromARGB(210, 255, 95, 170)),
-    BoxShadow(
-        blurRadius: 10,
-        offset: Offset(0, 10),
-        color: Color.fromARGB(210, 255, 95, 199)),
-    BoxShadow(
-        blurRadius: 15,
-        offset: Offset(120, -15),
-        color: Color.fromARGB(210, 95, 255, 162))
-  ];
   static Color orangecolor = const Color(0xffFF5B00);
   static Color offWhightcolor = const Color.fromARGB(255, 247, 229, 163);
   static Color coffecolor = const Color(0xffCA965C);
@@ -122,8 +104,22 @@ class myThemeData {
   static Color bluecolor = const Color(0xffF676FA3);
   static Color darkRedColor = const Color(0xff911F27);
 
+  static Color roseColor = const Color(0xffFEE7E6);
+  static Color mintGreenColor = Color.fromARGB(255, 247, 251, 248);
+  //used in add remove item row
   static BoxDecoration circleBtnDec = const BoxDecoration(
     borderRadius: BorderRadius.all(Radius.circular(100)),
     color: Color.fromARGB(151, 255, 255, 255),
   );
+//
+  static BoxDecoration gridViewDecoration(BuildContext context) {
+    return BoxDecoration(
+      border: Border.all(
+          color: myThemeData.bluecolor,
+          width: MediaQuery.of(context).size.width * .04),
+      borderRadius: BorderRadius.all(
+          Radius.circular(MediaQuery.of(context).size.width * .08)),
+      color: myThemeData.roseColor,
+    );
+  }
 }

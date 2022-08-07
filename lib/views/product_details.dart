@@ -21,7 +21,7 @@ class ProductDetails extends StatelessWidget {
 
     ShoppingCartVM shoppingCartProvider = Provider.of(context);
     return Scaffold(
-        backgroundColor: myThemeData.movcolor,
+        backgroundColor: myThemeData.bluecolor,
         appBar: CommonWidgets.appBAR(
             context, shoppingCartProvider.itemsNum.toString()),
         body: SingleChildScrollView(

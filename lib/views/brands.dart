@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:store/myThemeData.dart';
 import 'package:store/views/products.dart/brand_products.dart';
 
 import '../view_model/home.dart';
@@ -23,36 +24,44 @@ class Brands extends StatelessWidget {
       extendBody: true,
       appBar: CommonWidgets.appBAR(
           context, shoppingCartProvider.itemsNum.toString()),
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 20,
-          ),
-          CommonWidgets.brandCircle(context, 'Brands'),
-          const SizedBox(
-            height: 20,
-          ),
-          Expanded(
-            flex: 1,
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2),
-              itemCount: brands.length,
-              itemBuilder: (context, index) {
-                return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: ((context) =>
-                                  BrandProducts(brands[index]))));
-                    },
-                    child: CommonWidgets.brandNameBtn(context, brands[index]));
-              },
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * .03,
             ),
-          ),
-        ],
+            CommonWidgets.pageTitle(context, 'Brands'),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * .03,
+            ),
+            Container(
+                padding:
+                    EdgeInsets.all(MediaQuery.of(context).size.width * .06),
+                decoration: myThemeData.gridViewDecoration(context),
+                child: brandNamesgridView(brands)),
+          ],
+        ),
       ),
     );
   }
+}
+
+GridView brandNamesgridView(List<String> brands) {
+  return GridView.builder(
+    shrinkWrap: true,
+    physics: const NeverScrollableScrollPhysics(),
+    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2, mainAxisSpacing: 50, crossAxisSpacing: 50),
+    itemCount: brands.length,
+    itemBuilder: (context, index) {
+      return InkWell(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: ((context) => BrandProducts(brands[index]))));
+          },
+          child: CommonWidgets.brandNameBtn(context, brands[index]));
+    },
+  );
 }
